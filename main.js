@@ -14,7 +14,7 @@ const clc = require('cli-color');
 
 async function processAllPdfs() {
     const files = fs.readdirSync(config.inputDir);
-    console.log(`Found ${files.length} files to process`);
+    console.log(`Found ${clc.yellow(files.length)} files to process`);
 
     for (const fileName of files) {
         const file = await fun.parseFile(fileName); // await if parseFile is async

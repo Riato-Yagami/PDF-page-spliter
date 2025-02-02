@@ -2,7 +2,6 @@ const path = require('path');
 const { extname, basename, join } = path;
 
 module.exports = (name) => {
-    console.log('Parsing file:', name);
     const file = parseFile(name);
     return file;
 }

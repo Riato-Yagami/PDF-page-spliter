@@ -12,7 +12,7 @@ async function processPdf(file) {
         file.pdfBuffer = await fun.getPdfBuffer(file);
         
         file.pageBuffers = await fun.splitPdfPages(file);
-        // console.log(file.pageBuffers);
+
         await savePages(file);
 
         if(config.moveProcessedFile){ // Move processed file
@@ -21,7 +21,7 @@ async function processPdf(file) {
             })
         }
         
-        console.log(`Processed: ${clc.blue(file.name)} -> ${clc.blue(file.outputName)}`);
+        // console.log(`Processed: ${clc.blue(file.name)} -> ${clc.blue(file.outputName)}`);
     } catch (error) {
         console.error(clc.red(`Failed to process ${file}:`), error);
     }
@@ -32,7 +32,7 @@ async function savePages(file) {
         const outputDir = path.join(config.outputDir, file.nameWithoutExt);
         fun.checkDir(outputDir);
 
-        file.pageBuffers.forEach(async pageBuffer => {
+        for await (const pageBuffer of file.pageBuffers) {
             const title = await fun.parsePdfTitle(pageBuffer);
             // const parsedTitle = fun.parseTitle(pdfTitle);
             // console.log(title);
@@ -40,8 +40,9 @@ async function savePages(file) {
             fs.writeFileSync(outputFilePath, pageBuffer);
 
             console.log(`Split page : ${clc.green(outputFilePath)}`);
-        });
+        }
     } catch (error) {
         console.error(clc.red(`Failed to split pages for ${file}:`), error);
     }
+    return
 }
