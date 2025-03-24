@@ -36,7 +36,16 @@ async function savePages(file) {
             const title = await fun.parsePdfTitle(pageBuffer);
             // const parsedTitle = fun.parseTitle(pdfTitle);
             // console.log(title);
-            const outputFilePath = path.join(outputDir, `${title.parsed}.pdf`);
+            let outputFilePath = path.join(outputDir, `${title.parsed}.pdf`);
+
+            let id = 1;
+            while(fs.existsSync(outputFilePath)){
+                id++;
+                outputFilePath = path.join(outputDir, `${title.parsed}${id}.pdf`);
+            }
+
+            // console.log(id)
+
             fs.writeFileSync(outputFilePath, pageBuffer);
 
             console.log(`Split page : ${clc.green(outputFilePath)}`);

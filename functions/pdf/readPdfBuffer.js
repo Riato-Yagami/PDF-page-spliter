@@ -6,25 +6,8 @@ module.exports = async (pdfBuffer) => {
     const textArrayA = await readPdfBufferA(pdfBuffer);
     const textArrayB = await readPdfBufferB(pdfBuffer);
 
-    // console.log(textArrayA)
-    // console.log(textArrayB)
-
-    const completeTitle = reconstructTitle(textArrayA[0], textArrayB).trim();
-    let subTitle;
-    if(completeTitle.length > 0){
-        subTitle = completeTitle.split(':')[1].trim();
-        // console.log(subTitle);
-    }
-
-    let title = {
-        sections : fun.parseSections(textArrayA),
-        sub : subTitle ? subTitle : '',
-        complete : completeTitle
-    }
-
-    title.parsed = fun.parseTitle(title);
-
-    // console.log(title);
+    const title = reconstructTitle(textArrayA[0], textArrayB);
+    console.log(title);
     return title;
 }
 

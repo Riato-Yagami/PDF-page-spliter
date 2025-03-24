@@ -1,6 +1,6 @@
 module.exports = {
     inputDir : 'files/input',
     outputDir : 'files/output',
-    processedDir : 'files/processed',
-    moveProcessedFile : false
+    processedDir : 'files/input',
+    moveProcessedFile : true
 }
