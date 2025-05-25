@@ -1,6 +1,6 @@
 module.exports = (title) => {
     let sub = replaceSpecialChars(title.sub);
-
+    // console.log(title)
     parsedTitle = title.sections.prefixes.join('-') + '-'
     + sub.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); // Remove leading and trailing hyphens
 
